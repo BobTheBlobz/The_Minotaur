@@ -1,0 +1,20 @@
+#ifndef CLASSFACTORY_H
+#define CLASSFACTORY_H
+
+#include "main.h"
+#include "map.h"
+
+
+class ClassFactory
+{
+public:
+    ClassFactory();
+
+    template<int T> static Map<T> * makeCustomMap(char* tile = DEFAULT_TILESET);
+
+    static Map<SMALL_MAP_SIZE> * makeSmallMap(char* tile = DEFAULT_TILESET);
+    static Map<MEDIUM_MAP_SIZE> * makeMediumMap(char* tile = DEFAULT_TILESET);
+    static Map<LARGE_MAP_SIZE> * makeLargeMap(char* tile = DEFAULT_TILESET);
+};
+
+#endif // CLASSFACTORY_H
