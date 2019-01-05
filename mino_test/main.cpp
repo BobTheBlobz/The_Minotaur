@@ -5,11 +5,16 @@
 #include "graphicentity.h"
 #include "map.h"
 #include "classfactory.h"
+#include "tileempty.h"
+#include "tileblock.h"
+#include "character.h"
+#include "iostream"
 
 #include <QApplication>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QLabel>
+#include <QString>
 
 #include <QPixmap>
 
@@ -17,35 +22,66 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.setGeometry(500,500,192,192);
+    w.setGeometry(0,0,500,500);
 
-    Sprite * test_sprite = new Sprite(&w, "../mino_test/Minotaur.png",0,0,200,{70,5,15,10});
-    test_sprite->setPos(0*TILE_SIZE, 0*TILE_SIZE);
-    Sprite * test_sprite2 = new Sprite(&w, "../mino_test/Minotaur_running.png",0,2,75,{0,0,1,0});
+    std::cout << "debut" << std::endl;
+
+
+    Character minotaur(&w);
+    minotaur.getSprite()->setPos(0*TILE_SIZE, 0*TILE_SIZE);
+    Sprite * test_sprite2 = new Sprite(&w, QString(PATH) + "Minotaur_running.png" ,0,2,75,{0,0,1,0});
     test_sprite2->setPos(1*TILE_SIZE, 3*TILE_SIZE);
-    Sprite * test_sprite3 = new Sprite(&w, "../mino_test/Minotaur_running.png",0,1,200,{0,1,0,0});
-    test_sprite3->setPos(-1*TILE_SIZE, 3*TILE_SIZE);
+    Sprite * test_sprite3 = new Sprite(&w, QString(PATH) + "Minotaur_running.png",0,1,200,{0,1,0,0});
+    test_sprite3->setPos(2*TILE_SIZE, 3*TILE_SIZE);
 
+    std::cout << "minos chargés" << std::endl;
 
-    //Sprite_image * label = new Sprite_image(&w);
-    //label->setGeometry(64,64,64,64);
+    //QPixmap * pix = new QPixmap(QString(PATH) + DEFAULT_TILESET);
 
-    //w.show();
-    //QObject::connect(test_sprite,SIGNAL(draw(const QPixmap)), label, SLOT(update(const QPixmap *)));
+    QLabel label(&w);
 
-    //test_sprite->setLinefromSprite(2);
+    std::cout << "pixmap et tile" << std::endl;
 
-    const int x = SMALL_MAP_SIZE;
-    Map<x> * m = ClassFactory::makeSmallMap(DEFAULT_TILESET);
+    constexpr const unsigned int x = SMALL_MAP_SIZE;
+    Map<x> * m = ClassFactory::makeSmallMap(QString(PATH) + DEFAULT_TILESET);
 
+    m->setTile(1,0,Tile::type_block);
+    m->setTile(1,2,Tile::type_block);
+    m->setTile(3,4,Tile::type_block);
+    m->setTile(2,0,Tile::type_block);
+    m->setTile(4,1,Tile::type_block);
+
+    m->updateRepresentation();
+
+    std::cout << "map" << std::endl;
+
+/*
+    QPixmap pixmap(tile->getRepresentation());
+
+    label.setGeometry(0,0,500,500);
+    label.setPixmap(pixmap);
+
+    std::cout << "label" << std::endl;
+
+    label.show();
+    w.show();
+*/
 
     QGraphicsScene scene;
-    scene.addItem(test_sprite->representation());
+
+    scene.addItem(m->representation);
+
+    scene.addItem(minotaur.getSprite()->representation());
     scene.addItem(test_sprite2->representation());
     scene.addItem(test_sprite3->representation());
 
+
     QGraphicsView view(&scene);
     view.show();
+
+    minotaur.startControls();
+
+    std::cout << "fin" << std::endl;
 
     return a.exec();
 }

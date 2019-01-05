@@ -9,11 +9,8 @@
 class TileEmpty : public Tile
 {
 public:
-    TileEmpty(char * tileset = DEFAULT_TILESET);
-
-
-    bool isBlocking(int direction);
-    QPixmap getRepresentation();
+    TileEmpty(QPixmap * const tileset);
+    virtual ~TileEmpty();
 };
 
 #endif // TILEEMPTY_H

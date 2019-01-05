@@ -35,7 +35,10 @@ SOURCES += \
     map.cpp \
     tile.cpp \
     classfactory.cpp \
-    tileempty.cpp
+    tileempty.cpp \
+    tileblock.cpp \
+    eventhandler.cpp \
+    character.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,7 +51,10 @@ HEADERS += \
     map.h \
     tile.h \
     classfactory.h \
-    tileempty.h
+    tileempty.h \
+    tileblock.h \
+    eventhandler.h \
+    character.h
 
 FORMS += \
         mainwindow.ui

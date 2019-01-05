@@ -1,20 +1,14 @@
 #include "tileempty.h"
 
-TileEmpty::TileEmpty(char * t) : Tile(t)
+TileEmpty::TileEmpty(QPixmap * const tileset) :
+    Tile()
 {
-    this->representation = QPixmap(TILE_SIZE, TILE_SIZE);
-    this->tilesetIndex = {0,0};
-    this->block = {true, true, true, true};
-
+    this->block = {false, false, false, false};
+    this->tilesetIndex = {1,0};
+    this->initRepresentation(tileset);
 }
 
-bool TileEmpty::isBlocking(int direction)
+TileEmpty::~TileEmpty()
 {
-    return block[direction];
-}
-
-QPixmap TileEmpty::getRepresentation()
-{
-    return(representation);
 }
 

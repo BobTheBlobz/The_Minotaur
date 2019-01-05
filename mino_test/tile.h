@@ -10,15 +10,23 @@ class Tile
 {
 
 protected:
-    static std::array<bool,4> block;
-    static QPixmap representation;
-    static const std::array<int,2> tilesetIndex;
+    std::array<bool,4> block;
+    std::array<int,2> tilesetIndex;
+    QPixmap representation;
 
 public:
-    bool virtual isBlocking(int direction) = 0;
-    QPixmap virtual getRepresentation() = 0;
+    enum TYPE {
+               type_empty,
+               type_clear,
+               type_block
+    };
 
-    Tile(char * tileset = DEFAULT_TILESET);
+    bool virtual isBlocking(unsigned int direction) const;
+    QPixmap getRepresentation() const;
+
+    Tile();
+    virtual ~Tile();
+    void virtual initRepresentation(QPixmap * const tileset);
 };
 
 #endif // TILE_H
