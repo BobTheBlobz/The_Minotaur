@@ -1,8 +1,11 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-
 #define TILE_SIZE 64
+
+#define DEFAULT_PERIOD 20
+
+#define STD_CHAR_SPEED 5
 
 #define SPRITE_COLUMNS 4
 #define SPRITE_LINES 4

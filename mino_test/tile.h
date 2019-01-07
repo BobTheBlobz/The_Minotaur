@@ -21,8 +21,10 @@ public:
                type_block
     };
 
-    bool virtual isBlocking(unsigned int direction) const;
+    bool virtual isBlocking(int direction) const;
     QPixmap getRepresentation() const;
+
+    void onWalk();
 
     Tile();
     virtual ~Tile();

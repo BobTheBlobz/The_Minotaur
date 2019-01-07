@@ -5,14 +5,6 @@ ClassFactory::ClassFactory()
 
 }
 
-template<int T> Map<T> * ClassFactory::makeCustomMap(QString tile)
-{
-    Map<T> * mapPtr;
-    mapPtr = new Map<T>(tile);
-    return mapPtr;
-}
-
-
 Map<SMALL_MAP_SIZE> * ClassFactory::makeSmallMap(QString tile)
 {
     return makeCustomMap<SMALL_MAP_SIZE>(tile);

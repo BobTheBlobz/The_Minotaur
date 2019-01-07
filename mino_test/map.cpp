@@ -4,10 +4,11 @@ template<const unsigned int SIZE>
 const int Map<SIZE>::size = SIZE;
 
 template<const unsigned int SIZE>
-Map<SIZE>::Map(QString Tile) :
+Map<SIZE>::Map(QString Tile, std::array<unsigned int, 2> startPos) :
     Tileset(new QPixmap(TILE_SIZE*SPRITE_COLUMNS,TILE_SIZE*SPRITE_LINES)),
     map_pixmap(new QPixmap(SIZE*TILE_SIZE, SIZE*TILE_SIZE)),
-    representation(new QGraphicsPixmapItem(*map_pixmap))
+    representation(new QGraphicsPixmapItem(*map_pixmap)),
+    startPos(startPos)
 {
     this->Tileset->load(Tile);
     this->initMap();
@@ -19,15 +20,9 @@ Map<SIZE>::~Map()
 }
 
 template<const unsigned int SIZE>
-Map<SIZE>::Map(const Map<SIZE>& m)
+template<const unsigned int SIZE2>
+Map<SIZE>::Map(const Map<SIZE2>&)
 {
-    for(unsigned int i = 0; i<SIZE; i++)
-    {
-        for(unsigned int j = 0; j<SIZE; j++)
-        {
-            this->matrix.at(i).at(j) = m.matrix.at(i).at(j);
-        }
-    }
 }
 
 template<const unsigned int SIZE>

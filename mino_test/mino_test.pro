@@ -37,8 +37,8 @@ SOURCES += \
     classfactory.cpp \
     tileempty.cpp \
     tileblock.cpp \
-    eventhandler.cpp \
-    character.cpp
+    character.cpp \
+    engine.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,8 +53,8 @@ HEADERS += \
     classfactory.h \
     tileempty.h \
     tileblock.h \
-    eventhandler.h \
-    character.h
+    character.h \
+    engine.h
 
 FORMS += \
         mainwindow.ui

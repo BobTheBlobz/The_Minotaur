@@ -8,6 +8,7 @@
 #include "tileempty.h"
 #include "tileblock.h"
 #include "character.h"
+#include "engine.h"
 #include "iostream"
 
 #include <QApplication>
@@ -24,26 +25,15 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.setGeometry(0,0,500,500);
 
-    std::cout << "debut" << std::endl;
+    //std::cout << "debut" << std::endl;
 
 
-    Character minotaur(&w);
-    minotaur.getSprite()->setPos(0*TILE_SIZE, 0*TILE_SIZE);
-    Sprite * test_sprite2 = new Sprite(&w, QString(PATH) + "Minotaur_running.png" ,0,2,75,{0,0,1,0});
-    test_sprite2->setPos(1*TILE_SIZE, 3*TILE_SIZE);
-    Sprite * test_sprite3 = new Sprite(&w, QString(PATH) + "Minotaur_running.png",0,1,200,{0,1,0,0});
-    test_sprite3->setPos(2*TILE_SIZE, 3*TILE_SIZE);
+    Character * minotaur = new Character();
 
-    std::cout << "minos chargés" << std::endl;
+    //std::cout << "mino chargé" << std::endl;
 
-    //QPixmap * pix = new QPixmap(QString(PATH) + DEFAULT_TILESET);
-
-    QLabel label(&w);
-
-    std::cout << "pixmap et tile" << std::endl;
-
-    constexpr const unsigned int x = SMALL_MAP_SIZE;
-    Map<x> * m = ClassFactory::makeSmallMap(QString(PATH) + DEFAULT_TILESET);
+    constexpr const unsigned int x = 5;
+    Map<x> * m = ClassFactory::makeCustomMap<x>(QString(PATH) + DEFAULT_TILESET);
 
     m->setTile(1,0,Tile::type_block);
     m->setTile(1,2,Tile::type_block);
@@ -51,37 +41,30 @@ int main(int argc, char *argv[])
     m->setTile(2,0,Tile::type_block);
     m->setTile(4,1,Tile::type_block);
 
-    m->updateRepresentation();
+    //std::cout << "map" << std::endl;
 
-    std::cout << "map" << std::endl;
+    QGraphicsScene * scene = new QGraphicsScene();
 
-/*
-    QPixmap pixmap(tile->getRepresentation());
+    //std::cout << "scene" << std::endl;
+    Engine engine(&a);
 
-    label.setGeometry(0,0,500,500);
-    label.setPixmap(pixmap);
+    //::cout << "engine" << std::endl;
+    engine.setCharacter(minotaur);
+    //std::cout << "setchara" << std::endl;
+    engine.setMap(m);
+    //std::cout << "setmap" << std::endl;
+    engine.setScene(scene);
+    //std::cout << "setscene" << std::endl;
+    engine.drawScene();
+    //std::cout << "drawscene" << std::endl;
+    engine.start();
 
-    std::cout << "label" << std::endl;
+    QGraphicsView view(engine.getScene());
 
-    label.show();
-    w.show();
-*/
-
-    QGraphicsScene scene;
-
-    scene.addItem(m->representation);
-
-    scene.addItem(minotaur.getSprite()->representation());
-    scene.addItem(test_sprite2->representation());
-    scene.addItem(test_sprite3->representation());
-
-
-    QGraphicsView view(&scene);
     view.show();
 
-    minotaur.startControls();
 
-    std::cout << "fin" << std::endl;
+    //std::cout << "fin" << std::endl;
 
     return a.exec();
 }

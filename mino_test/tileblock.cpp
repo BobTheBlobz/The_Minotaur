@@ -3,7 +3,7 @@
 TileBlock::TileBlock(QPixmap * const tileset) :
     Tile()
 {
-    block = {false, false, false, false};
+    block = {true, true, true, true};
     tilesetIndex = {0,1};
     this->initRepresentation(tileset);
 }
